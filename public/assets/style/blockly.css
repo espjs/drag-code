@@ -1,0 +1,29 @@
+.blocklyToolbox {
+    background-color: #222222;
+    color: white;
+}
+
+.blocklyPassiveFocus:focus-visible {
+    outline: none;
+}
+
+.blocklyToolboxCategory {
+    line-height: 30px;
+    height: 30px;
+}
+
+.blocklySvg {
+    background-color: #1E1E1E;
+}
+
+.blocklyFlyoutBackground {
+    fill: #252525;
+}
+
+.blocklyWidgetDiv .blocklyMenu {
+    overflow: hidden;
+}
+
+.blocklyMainBackground {
+    stroke-width: 0;
+}

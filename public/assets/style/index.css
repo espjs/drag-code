@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 标题栏 */
+.title-bar {
+    height: 40px;
+    background: #2d2d2d;
+    border-bottom: 1px solid #404040;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    -webkit-app-region: drag;
+}
+
+.title-bar h1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+
+/* 新增窗口控制容器和按钮 */
+.title-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-app-region: no-drag;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.window-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: background 0.2s;
+    -webkit-app-region: no-drag;
+}
+
+.minimize-btn {
+    background: #404040;
+    color: #e0e0e0;
+}
+
+.minimize-btn:hover {
+    background: #505050;
+}
+
+.maximize-btn {
+    background: #404040;
+    color: #e0e0e0;
+}
+
+.maximize-btn:hover {
+    background: #505050;
+}
+
+.close-btn {
+    background: #404040;
+    color: #e0e0e0;
+}
+
+.close-btn:hover {
+    background: #ff4444;
+}
+
+
+/* 主容器 */
+.main-container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+/* 左侧卡片编程区域 */
+.card-area {
+    width: 50%;
+    background: #252525;
+    border-right: 1px solid #404040;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+/* 右侧代码显示区域 */
+.code-area {
+    width: 50%;
+    background: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.card-toolbar {
+    height: 50px;
+    background: #2d2d2d;
+    border-bottom: 1px solid #404040;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    gap: 10px;
+}
+
+.card-category {
+    background: #404040;
+    color: #e0e0e0;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+
+.card-category:hover {
+    background: #505050;
+}
+
+.card-workspace {
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+    color: #1a1a1a;
+}
+
+.code-tab {
+    background: #404040;
+    color: #e0e0e0;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.code-tab.active {
+    background: #4CAF50;
+}
+
+.code-toolbar {
+    height: 50px;
+    background: #2d2d2d;
+    border-bottom: 1px solid #404040;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    gap: 10px;
+}
+
+.card-category {
+    background: #404040;
+    color: #e0e0e0;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+
+.card-category:hover {
+    background: #505050;
+}
+
+.code-display {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    color: #e0e0e0;
+}
+
+/* 状态栏 */
+.status-bar {
+    height: 30px;
+    background: #2d2d2d;
+    border-top: 1px solid #404040;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 12px;
+    color: #b0b0b0;
+}
+
+.status-item {
+    margin-right: 20px;
+}
+
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #2d2d2d;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #505050;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666666;
+}
+
+/* 新增可拖拽的分隔条 */
+.resizer {
+    width: 4px;
+    background: #404040;
+    cursor: col-resize;
+    position: relative;
+    transition: background 0.2s;
+}
+
+.resizer:hover {
+    background: #4CAF50;
+}
+
+.resizer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -2px;
+    right: -2px;
+    bottom: 0;
+}
