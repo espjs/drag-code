@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.hide {
+    display: none;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #1a1a1a;
@@ -143,17 +147,23 @@ body {
 }
 
 .code-tab {
-    background: #404040;
     color: #e0e0e0;
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
+    background: #4CAF50;
 }
 
-.code-tab.active {
-    background: #4CAF50;
+
+.code-tab:disabled {
+    background: #404040;
+}
+
+.device-close-btn,
+.device-clear-btn {
+    background: #ff0000;
 }
 
 .code-toolbar {

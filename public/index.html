@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Espruino 卡片式编程</title>
+	<link rel="icon" href="./assets/images/favicon.png" />
 	<link rel="stylesheet" href="./assets/style/index.css">
 	<link rel="stylesheet" href="./assets/style/blockly.css">
 
@@ -12,6 +13,7 @@
 	<script src="https://unpkg.com/blockly@12.3.0/blockly_compressed.js"></script>
 	<script src="https://unpkg.com/blockly@12.3.0/blocks_compressed.js"></script>
 	<script src="https://unpkg.com/blockly@12.3.0/javascript_compressed.js"></script>
+
 	<script src="https://unpkg.com/blockly@12.3.0/msg/zh-hans.js"></script>
 	<script src="https://unpkg.com/monaco-editor@0.53.0/min/vs/loader.js"></script>
 	<!-- <script src="https://unpkg.com/js-beautify@1.15.4/js/lib/beautifier.min.js"></script> -->
@@ -50,7 +52,9 @@
 		<!-- 右侧代码显示区域 -->
 		<div class="code-area" id="codeArea">
 			<div class="code-toolbar">
-				<button class="code-tab active" onclick=" ">▶ 运行测试</button>
+				<button class="code-tab device-close-btn hide" onclick="断开连接()" id="device-close-btn"> 断开连接</button>
+				<button class="code-tab" onclick="运行代码()">▶ 运行代码</button>
+				<button class="code-tab device-clear-btn" onclick="清除设备代码()">清除设备代码</button>
 			</div>
 			<div class="code-display" id="codeDisplay"></div>
 		</div>
@@ -62,10 +66,12 @@
 		<!-- <div class="status-item">代码行数: <span id="lineCount">3</span></div> -->
 		<div class="status-item">语言: JavaScript</div>
 	</div>
-
 	<script src="./assets/script/resizer.js"></script>
-	<script src="./assets/script/vscode.js"></script>
+	<script src="./assets/script/block/zh-cn.js"></script>
+	<script src="./assets/script/block/espruino_old.js"></script>
+	<script src="./assets/script/block/espruino.js"></script>
 	<script src="./assets/script/blockly.js"></script>
+	<script src="./assets/script/vscode.js"></script>
 	<script src="./assets/script/index.js"></script>
 </body>
 

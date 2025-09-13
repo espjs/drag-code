@@ -1,6 +1,7 @@
 .blocklyToolbox {
     background-color: #222222;
     color: white;
+    padding-left: 5px;
 }
 
 .blocklyPassiveFocus:focus-visible {
@@ -21,9 +22,13 @@
 }
 
 .blocklyWidgetDiv .blocklyMenu {
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .blocklyMainBackground {
     stroke-width: 0;
+}
+
+.blocklyScrollbarHandle {
+    fill: #333;
 }

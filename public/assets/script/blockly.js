@@ -6,6 +6,7 @@
                 blockList.push({
                     kind: 'block',
                     type: key,
+                    inputs: typeof Blockly.Blocks[key].inputs == 'object' ? Blockly.Blocks[key].inputs : {},
                 });
             }
         }
@@ -20,37 +21,54 @@
             {
                 "kind": "category",
                 "name": "变量",
-                "contents": getBlock('variables_'),
+                "contents": getBlock('variables'),
+            },
+            {
+                "kind": "category",
+                "name": "逻辑",
+                "contents": getBlock('logic'),
             },
             {
                 "kind": "category",
                 "name": "控制",
-                "contents": getBlock('controls_'),
+                "contents": getBlock('controls'),
             },
             {
                 "kind": "category",
                 "name": "列表",
-                "contents": getBlock('lists_'),
+                "contents": getBlock('lists'),
             },
             {
                 "kind": "category",
                 "name": "数学",
-                "contents": getBlock('math_'),
+                "contents": getBlock('math'),
             },
             {
                 "kind": "category",
                 "name": "函数",
-                "contents": getBlock('procedures_'),
+                "contents": getBlock('procedures'),
             },
             {
                 "kind": "category",
                 "name": "文本",
-                "contents": getBlock('text_'),
+                "contents": getBlock('text'),
             },
             {
                 "kind": "category",
                 "name": "Espruino",
-                "contents": getBlock('espruino_'),
+                "contents": getBlock('espruino'),
+            },
+            {
+                "kind": "category",
+                "name": "传感器",
+                "contents": [
+                    {
+                        "kind": "category",
+                        "name": "伺服电机",
+                        "contents": getBlock('hw_'),
+                    }
+                ],
+
             },
             {
                 "kind": "category",
@@ -61,37 +79,51 @@
         ]
     };
 
-    const workspace = Blockly.inject('cardWorkspace', {
+    Blockly.workspace = Blockly.inject('cardWorkspace', {
         toolbox: toolbox,
         collapse: true,
         comments: true,
         media: 'https://unpkg.com/blockly@12.3.0/media/',
     });
 
+    Blockly.JavaScript.scrub__ = Blockly.JavaScript.scrub_;
+    Blockly.JavaScript.scrub_ = function (block, code) {
+        var callbackIdx = ("string" == typeof code) ? code.indexOf(MAGIC_CALLBACK_CODE) : -1;
+        if (callbackIdx >= 0) {
+            var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+            var nextCode = Blockly.JavaScript.blockToCode(nextBlock);
+            return code.substr(0, callbackIdx) + "function() {\n" +
+                "  " + nextCode + "}" + code.substr(callbackIdx + MAGIC_CALLBACK_CODE.length);
+        } else {
+
+            return Blockly.JavaScript.scrub__(block, code);
+        }
+    }
+
     function updateCode() {
-        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        var code = Blockly.JavaScript.workspaceToCode(Blockly.workspace);
         window.dispatchEvent(new CustomEvent('updateCode', { detail: code }));
     }
 
-    workspace.addChangeListener(() => {
+    Blockly.workspace.addChangeListener(() => {
         updateCode();
-        const state = Blockly.serialization.workspaces.save(workspace);
+        const state = Blockly.serialization.workspaces.save(Blockly.workspace);
         localStorage.setItem('workspace-state', JSON.stringify(state));
     });
 
     window.addEventListener('updateBlockly', function (e) {
         const state = JSON.parse(e.detail);
         if (state) {
-            Blockly.serialization.workspaces.load(state, workspace);
+            Blockly.serialization.workspaces.load(state, Blockly.workspace);
         }
     });
 
-    window.workspace = workspace;
+    // window.workspace = Blockly.workspace;
 
     setTimeout(() => {
         const state = JSON.parse(localStorage.getItem('workspace-state'));
         if (state) {
-            Blockly.serialization.workspaces.load(state, workspace);
+            Blockly.serialization.workspaces.load(state, Blockly.workspace);
         }
     }, 2000);
 

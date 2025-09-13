@@ -72,6 +72,8 @@
             }
         });
 
+        monaco.workspace = editor;
+
         updateStatus('编辑器已就绪');
     });
 
