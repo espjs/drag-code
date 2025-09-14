@@ -5,60 +5,59 @@ Espruino官方提供的一些卡片, 经过了简单修改和汉化
 var MAGIC_CALLBACK_CODE = "function(){NEXT_BLOCKS}";
 var ESPRUINO_COL = 190;
 var PINS = [
-    ["NodeMCU.A0", 'NodeMCU.A0'],
-    ["NodeMCU.D0", 'NodeMCU.D0'],
-    ["NodeMCU.D1", 'NodeMCU.D1'],
-    ["NodeMCU.D2", 'NodeMCU.D2'],
-    ["NodeMCU.D3", 'NodeMCU.D3'],
-    ["NodeMCU.D4", 'NodeMCU.D4'],
-    ["NodeMCU.D5", 'NodeMCU.D5'],
-    ["NodeMCU.D6", 'NodeMCU.D6'],
-    ["NodeMCU.D7", 'NodeMCU.D7'],
-    ["NodeMCU.D8", 'NodeMCU.D8'],
-    ["指示灯", ' NodeMCU.D4'],
+    ["A0", 'A0'],
+    ["D0", 'D0'],
+    ["D1", 'D1'],
+    ["D2", 'D2'],
+    ["D3", 'D3'],
+    ["D4", 'D4'],
+    ["D5", 'D5'],
+    ["D6", 'D6'],
+    ["D7", 'D7'],
+    ["D8", 'D8'],
 
 ];
 
 var DATETIME_TYPES = [
-    ["Second", "Seconds"],
-    ["Minute", "Minutes"],
-    ["Hour", "Hours"],
-    ["Day", "Day"],
-    ["Month", "Month"],
-    ["Year", "FullYear"],
-    ["Date", "Date"],
-    ["Time", "Time"],
-    ["Millisecond", "Milliseconds"],
-    ["Time Zone Offset", "TimezoneOffset"]
+    ["秒", "Seconds"],
+    ["分", "Minutes"],
+    ["时", "Hours"],
+    ["日", "Day"],
+    ["月", "Month"],
+    ["年", "FullYear"],
+    ["日期", "Date"],
+    ["时间", "Time"],
+    ["毫秒", "Milliseconds"],
+    ["时区偏移", "TimezoneOffset"]
 ];
 
 
-// Blockly.Blocks.espruino_delay = {
-//     category: 'Espruino',
-//     init: function () {
-//         this.appendValueInput('SECONDS')
-//             .setCheck('Number')
-//             .appendField(Blockly.Msg.ESPRUINO_WAIT);
-//         this.appendDummyInput()
-//             .appendField(Blockly.Msg.ESPRUINO_SECONDS);
+Blockly.Blocks.espruino_delay = {
+    category: 'Espruino',
+    init: function () {
+        this.appendValueInput('SECONDS')
+            .setCheck('Number')
+            .appendField(Blockly.Msg.ESPRUINO_WAIT);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.ESPRUINO_SECONDS);
 
-//         this.setPreviousStatement(true);
-//         this.setNextStatement(true);
-//         this.setColour(ESPRUINO_COL);
-//         this.setInputsInline(true);
-//         this.setTooltip(Blockly.Msg.ESPRUINO_WAIT_TOOLTIP);
-//     },
-//     inputs: {
-//         SECONDS: {
-//             "block": {
-//                 "type": "math_number",
-//                 "fields": {
-//                     "NUM": 1
-//                 }
-//             }
-//         }
-//     }
-// };
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(ESPRUINO_COL);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.ESPRUINO_WAIT_TOOLTIP);
+    },
+    inputs: {
+        SECONDS: {
+            "block": {
+                "type": "math_number",
+                "fields": {
+                    "NUM": 1
+                }
+            }
+        }
+    }
+};
 Blockly.Blocks.espruino_timeout = {
     category: 'Espruino',
     init: function () {
@@ -162,6 +161,8 @@ Blockly.Blocks.espruino_watch = {
             .appendField(Blockly.Msg.ESPRUINO_WATCH);
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown(this.EDGES), 'EDGE').appendField('边缘');
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown(this.DEBOUNCE), 'DEBOUNCE');
         this.appendStatementInput('DO')
             .appendField(Blockly.Msg.CONTROLS_REPEAT_INPUT_DO);
 
@@ -176,12 +177,16 @@ Blockly.Blocks.espruino_watch = {
         ["上升", 'rising'],
         ["下降", 'falling']
     ],
+    DEBOUNCE: [
+        ['消抖', 'true'],
+        ['不消抖', 'false']
+    ],
     inputs: {
         PIN: {
             "block": {
                 "type": "espruino_pin",
                 "fields": {
-                    "PIN": 'NodeMCU.D0'
+                    "PIN": 'D0'
                 }
             }
         }
@@ -222,7 +227,7 @@ Blockly.Blocks.espruino_digitalWrite = {
             "block": {
                 "type": "espruino_pin",
                 "fields": {
-                    "PIN": 'NodeMCU.D0'
+                    "PIN": 'D0'
                 }
             }
         },
@@ -259,7 +264,7 @@ Blockly.Blocks.espruino_digitalPulse = {
             "block": {
                 "type": "espruino_pin",
                 "fields": {
-                    "PIN": 'NodeMCU.D0'
+                    "PIN": 'D0'
                 }
             }
         },
@@ -295,7 +300,7 @@ Blockly.Blocks.espruino_digitalRead = {
             "block": {
                 "type": "espruino_pin",
                 "fields": {
-                    "PIN": 'NodeMCU.D0'
+                    "PIN": 'D0'
                 }
             }
         },
@@ -323,7 +328,7 @@ Blockly.Blocks.espruino_analogWrite = {
             "block": {
                 "type": "espruino_pin",
                 "fields": {
-                    "PIN": 'NodeMCU.A0'
+                    "PIN": 'A0'
                 }
             }
         },
@@ -351,7 +356,7 @@ Blockly.Blocks.espruino_analogRead = {
             "block": {
                 "type": "espruino_pin",
                 "fields": {
-                    "PIN": 'NodeMCU.A0'
+                    "PIN": 'A0'
                 }
             }
         },
@@ -383,7 +388,7 @@ Blockly.Blocks.espruino_pinMode = {
             "block": {
                 "type": "espruino_pin",
                 "fields": {
-                    "PIN": 'NodeMCU.A0'
+                    "PIN": 'D0'
                 }
             }
         },
@@ -414,15 +419,19 @@ Blockly.Blocks.espruino_jsexpression = {
     }
 };
 // -----------------------------------------------------------------------------------
-Blockly.Blocks.get_datetime = {
+Blockly.Blocks.espruino_get_datetime = {
     category: 'Espruino',
     init: function () {
-        this.appendDummyInput().appendField('Get Current ').appendField(new Blockly.FieldDropdown(DATETIME_TYPES), 'DTTYPE');
+        this.appendDummyInput()
+            .appendField('获取当前')
+            .appendField(new Blockly.FieldDropdown(DATETIME_TYPES), 'DTTYPE');
+        this.setColour(ESPRUINO_COL);
+        this.setOutput(true);
     }
 };
-Blockly.JavaScript.get_datetime = function () {
+Blockly.JavaScript.forBlock.espruino_get_datetime = function () {
     var dttype = this.getFieldValue('DTTYPE');
-    return [`Date.get${dttype}();\n`, Blockly.JavaScript.ORDER_ATOMIC];
+    return [`Date.get${dttype}()`, Blockly.JavaScript.ORDER_ATOMIC];
 };
 // ----------------------------------------------------------
 Blockly.Blocks.hw_servoMove = {
@@ -505,14 +514,15 @@ Blockly.JavaScript.forBlock.espruino_interval = function () {
 };
 Blockly.JavaScript.forBlock.espruino_pin = function () {
     var code = this.getFieldValue('PIN');
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+    return ['NodeMCU.' + code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 Blockly.JavaScript.forBlock.espruino_watch = function () {
     var pin = Blockly.JavaScript.valueToCode(this, 'PIN', Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
     var edge = this.getFieldValue('EDGE');
+    var debounce = this.getFieldValue('DEBOUNCE');
     var branch = Blockly.JavaScript.statementToCode(this, 'DO');
     var json = { repeat: true, edge: edge };
-    if (pin == "BTN1") json.debounce = 10;
+    if (debounce == "true") { json.debounce = 10 };
     return "setWatch(function() {\n" + branch + " }, " + pin + ", " + JSON.stringify(json) + ");\n";
 };
 Blockly.JavaScript.forBlock.espruino_digitalWrite = function () {

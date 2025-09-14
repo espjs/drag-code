@@ -32,7 +32,7 @@
         cardArea.style.width = leftWidth + '%';
         codeArea.style.width = rightWidth + '%';
 
-        Blockly.svgResize(workspace);
+        Blockly.svgResize(Blockly.workspace);
     }
 
     function stopResize() {

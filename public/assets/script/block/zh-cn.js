@@ -11,7 +11,7 @@ Blockly.Msg.ESPRUINO_MORE = '更多';
 Blockly.Msg.ESPRUINO_BACK = '返回';
 Blockly.Msg.ESPRUINO_PIN_NAME = '引脚的名字';
 
-Blockly.Msg.ESPRUINO_WATCH = '监听按键';
+Blockly.Msg.ESPRUINO_WATCH = '监听引脚';
 Blockly.Msg.ESPRUINO_WATCH_TOOLTIP = '当输入更改时运行代码';
 Blockly.Msg.ESPRUINO_TIME = '时间';
 Blockly.Msg.ESPRUINO_TIME_TOOLTIP = '读取当前时间（秒）';

@@ -83,11 +83,35 @@ async function 连接开发板() {
 async function 运行代码() {
     更新状态('连接开发板');
     await 连接开发板();
+    更新状态('清除设备代码');
+    
+    await 清除设备代码();
+    await 等待(1000);
+
     更新状态('获取代码');
     var code = monaco.workspace.getValue();
+    
     更新状态('正在发送代码');
     await 发送代码(code);
+    
     更新状态('运行代码完成');
+}
+
+async function 写入设备() {
+
+    更新状态('清除设备代码');
+    await 清除设备代码();
+    await 等待(1000);
+
+
+    更新状态('获取代码');
+    var code = monaco.workspace.getValue();
+
+    code = 'require("Storage").write(".bootcde", `' + code + '`);E.reboot();';
+    console.log(code);
+    更新状态('正在发送代码');
+    await 发送代码(code);
+
 }
 
 async function 发送代码(code) {

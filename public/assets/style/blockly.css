@@ -32,3 +32,29 @@
 .blocklyScrollbarHandle {
     fill: #333;
 }
+
+.blocklyWidgetDiv .blocklyMenu {
+    background-color: #333;
+}
+
+.blocklyMenuItem {
+    color: white;
+}
+
+.blocklyMenuItemDisabled {
+    color: #999;
+    cursor: inherit;
+}
+
+.blocklyToolboxCategoryIconClosed {
+    background-position: -32px -16px;
+}
+
+.blocklyToolboxCategoryIconOpen {
+    background-position: -16px -16px;
+}
+
+.blocklyDropDownDiv {
+    background-color: #333;
+    border: 1px solid #333;
+}
