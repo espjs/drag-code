@@ -18,7 +18,6 @@ function closeWindow() {
 }
 
 async function 打开文件() {
-    // 使用web file system api 读取json文件
     var options = {
         types: [
             {
@@ -45,7 +44,6 @@ async function 打开文件() {
 
 
 async function 保存文件() {
-    // 使用web file system api 保存json文件
     var options = {
         types: [
             {
@@ -68,9 +66,34 @@ async function 保存文件() {
 }
 
 var port = null;
+var writer = null;
+var reader = null;
 
 async function 等待(毫秒) {
     await new Promise(resolve => setTimeout(resolve, 毫秒));
+}
+
+function 显示日志(日志信息) {
+    var console = document.getElementById('consoleContent');
+    console.innerHTML += `<div class="console-output">${日志信息}</div>`;
+    console.scrollTop = console.scrollHeight;
+}
+
+function 显示错误日志(错误信息) {
+    var console = document.getElementById('consoleContent');
+    console.innerHTML += `<div class="console-output error">${错误信息}</div>`;
+    console.scrollTop = console.scrollHeight;
+}
+
+function 显示成功日志(提示信息) {
+    var console = document.getElementById('consoleContent');
+    console.innerHTML += `<div class="console-output success">${提示信息}</div>`;
+    console.scrollTop = console.scrollHeight;
+}
+
+function 清除日志() {
+    var console = document.getElementById('consoleContent');
+    console.innerHTML = '';
 }
 
 async function 连接开发板() {
@@ -78,61 +101,104 @@ async function 连接开发板() {
         port = await navigator.serial.requestPort();
         await port.open({ baudRate: 115200 });
         document.getElementById('device-close-btn').classList.remove('hide');
+
+        监听串口数据();
     };
 }
-async function 运行代码() {
-    更新状态('连接开发板');
-    await 连接开发板();
-    更新状态('清除设备代码');
-    
-    await 清除设备代码();
-    await 等待(1000);
 
-    更新状态('获取代码');
+async function 监听串口数据() {
+    while (port && port.readable) {
+        reader = port.readable.getReader();
+        try {
+            var text = '';
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) {
+                    // |reader| has been canceled.
+                    显示日志(text);
+                    break;
+                }
+                text += new TextDecoder().decode(value);
+                if (text.includes('\n')) {
+                    var lines = text.split('\n');
+                    for (var i = 0; i < lines.length - 1; i++) {
+                        var line = lines[i];
+                        显示日志(line);
+                    }
+                    text = lines[lines.length - 1];
+                }
+            }
+        } catch (error) {
+            // Handle |error|…
+        } finally {
+            reader.releaseLock();
+        }
+    }
+}
+async function 运行代码() {
+    显示日志('连接开发板');
+    await 连接开发板();
+
+    显示日志('获取代码');
     var code = monaco.workspace.getValue();
-    
-    更新状态('正在发送代码');
+
+    显示日志('正在发送代码');
     await 发送代码(code);
-    
-    更新状态('运行代码完成');
+
+    显示日志('运行代码完成');
 }
 
 async function 写入设备() {
 
-    更新状态('清除设备代码');
-    await 清除设备代码();
-    await 等待(1000);
+    显示日志('连接开发板');
+    await 连接开发板();
 
-
-    更新状态('获取代码');
+    显示日志('获取代码');
     var code = monaco.workspace.getValue();
 
     code = 'require("Storage").write(".bootcde", `' + code + '`);E.reboot();';
-    console.log(code);
-    更新状态('正在发送代码');
+    显示日志('正在发送代码');
     await 发送代码(code);
 
 }
 
 async function 发送代码(code) {
-    var writer = port.writable.getWriter();
+    writer = port.writable.getWriter();
     var data = new TextEncoder().encode(code + '\n');
     await writer.write(data);
     writer.releaseLock();
+    writer = null;
 }
 
 async function 断开连接() {
+    if (writer) {
+        writer.releaseLock();
+        writer = null;
+    }
+    if (reader) {
+        reader.cancel();
+        reader = null;
+    }
+
     if (port) {
         await port.close();
         port = null;
     }
     document.getElementById('device-close-btn').classList.add('hide');
-    更新状态('已断开连接');
+    显示日志('已断开连接');
 }
 
 async function 清除设备代码() {
     await 连接开发板();
-    更新状态('正在清除代码');
+    显示日志('正在清除代码');
     await 发送代码("require('Storage').eraseAll();E.reboot();");
-    更新状态('代码清除完成');
+    显示日志('代码清除完成');
 }
+
+async function 重启设备() {
+    await 连接开发板();
+    await 发送代码("E.reboot();");
+    显示日志('设备重启完成');
+}
+
+显示日志('初始化...');

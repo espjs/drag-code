@@ -431,7 +431,7 @@ Blockly.Blocks.espruino_get_datetime = {
 };
 Blockly.JavaScript.forBlock.espruino_get_datetime = function () {
     var dttype = this.getFieldValue('DTTYPE');
-    return [`Date.get${dttype}()`, Blockly.JavaScript.ORDER_ATOMIC];
+    return [`new Date().get${dttype}()`, Blockly.JavaScript.ORDER_ATOMIC];
 };
 // ----------------------------------------------------------
 Blockly.Blocks.hw_servoMove = {

@@ -91,7 +91,7 @@ Blockly.Blocks['espruino_wifi_get_ip'] = {
 };
 
 Blockly.JavaScript.forBlock['espruino_wifi_get_ip'] = function (block, generator) {
-    var code = "require('Wifi').getIP()";
+    var code = "require('Wifi').getIP().ip";
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 
@@ -124,7 +124,7 @@ Blockly.Blocks['espruino_console_log'] = {
 
 Blockly.JavaScript.forBlock['espruino_console_log'] = function (block, generator) {
     const value_name = generator.valueToCode(block, 'VAL', Blockly.JavaScript.ORDER_ATOMIC);
-    return `console.log(${value_name})`;
+    return `console.log(${value_name});\n`;
 }
 
 Blockly.Blocks['espruino_start'] = {
@@ -150,7 +150,52 @@ Blockly.JavaScript.forBlock['espruino_start'] = function (block, generator) {
     const statement_name = generator.statementToCode(block, 'NAME');
     return `(function (){
         ${statement_name}
-    })();`;
+    })();\n`;
 }
 
+Blockly.Blocks.espruino_led = {
+    init: function () {
+        this.appendDummyInput('NAME')
+            .appendField(new Blockly.FieldDropdown([
+                ['打开', 'open'],
+                ['关闭', 'close'],
+                ['反转', 'reverse'],
+            ]), 'status')
+            .appendField('指示灯');
+        this.setInputsInline(true)
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour(210);
+    }
+};
 
+Blockly.JavaScript.forBlock.espruino_led = function (block, generator) {
+    var dropdown_status = block.getFieldValue('status');
+    if (dropdown_status == 'reverse') {
+        dropdown_status = '!digitalRead(NodeMCU.D4)';
+        return 'global.led_status = !global.led_status;digitalWrite(NodeMCU.D4, global.led_status);\n';
+    }
+    var status = dropdown_status == 'open' ? 'LOW' : 'HIGH';
+    return `digitalWrite(NodeMCU.D4, ${status});global.led_status = ${status};\n`;
+};
+
+
+Blockly.Blocks.espruino_pin_gpio = {
+    init: function () {
+        this.appendDummyInput('gpio')
+            .appendField('GPIO_')
+            .appendField(new Blockly.FieldTextInput('0'), 'NAME');
+        this.setOutput(true, 'Pin');
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour(225);
+    }
+};
+
+Blockly.JavaScript.forBlock.espruino_pin_gpio = function () {
+    const text_name = this.getFieldValue('NAME');
+    const code = text_name;
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+}

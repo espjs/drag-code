@@ -56,8 +56,22 @@
 				<button class="code-tab" onclick="运行代码()">▶ 运行代码</button>
 				<button class="code-tab" onclick="写入设备()">⇩ 写入设备</button>
 				<button class="code-tab device-clear-btn" onclick="清除设备代码()">清除设备代码</button>
+				<button class="code-tab device-reboot-btn" onclick="重启设备()">重启设备</button>
 			</div>
 			<div class="code-display" id="codeDisplay"></div>
+
+			<!-- 添加垂直分隔条 -->
+			<div class="vertical-resizer" id="verticalResizer"></div>
+
+			<!-- 添加控制台区域 -->
+			<div class="console-area" id="consoleArea">
+				<div class="console-header">
+					<span>控制台输出</span>
+					<button onclick="清除日志()">清空</button>
+				</div>
+				<div class="console-content" id="consoleContent">
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -71,9 +85,10 @@
 	<script src="./assets/script/block/zh-cn.js"></script>
 	<script src="./assets/script/block/espruino_old.js"></script>
 	<script src="./assets/script/block/espruino.js"></script>
+	<script src="./assets/script/block/web.js"></script>
+	<script src="./assets/script/index.js"></script>
 	<script src="./assets/script/blockly.js"></script>
 	<script src="./assets/script/vscode.js"></script>
-	<script src="./assets/script/index.js"></script>
 </body>
 
 </html>

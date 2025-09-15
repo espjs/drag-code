@@ -120,11 +120,13 @@
 
     // window.workspace = Blockly.workspace;
 
+    显示日志('初始化卡片中...');
     setTimeout(() => {
         const state = JSON.parse(localStorage.getItem('workspace-state'));
         if (state) {
             Blockly.serialization.workspaces.load(state, Blockly.workspace);
         }
+        显示日志('卡片初始化完成...');
     }, 2000);
 
 

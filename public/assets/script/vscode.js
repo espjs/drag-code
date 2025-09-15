@@ -1,4 +1,5 @@
 (() => {
+    显示日志('初始化代码编辑器中...');
     let editor;
     let currentLanguage = 'javascript';
 
@@ -74,7 +75,7 @@
 
         monaco.workspace = editor;
 
-        updateStatus('编辑器已就绪');
+        显示日志('编辑器初始化完成');
     });
 
     function updateStatus(msg) {
