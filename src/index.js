@@ -9,6 +9,8 @@ export default {
 	 * @returns {Promise<Response>} The response to be sent back to the client
 	 */
 	async fetch(request, env, ctx) {
-		return new Response('hello world');
+		var url = new URL(request.url);
+		var source = 'https://www.espruino.com' + url.pathname;
+		return await fetch(source);
 	}
 };

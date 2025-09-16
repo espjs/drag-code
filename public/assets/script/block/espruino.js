@@ -1,4 +1,4 @@
-Blockly.Blocks['espruino_wifi'] = {
+Blockly.Blocks.espruino_wifi = {
     init: function () {
         this.jsonInit({
             "type": "espruino_wifi",
@@ -56,7 +56,7 @@ Blockly.Blocks['espruino_wifi'] = {
     }
 };
 
-Blockly.JavaScript.forBlock['espruino_wifi'] = function (block, generator) {
+Blockly.JavaScript.forBlock.espruino_wifi = function (block, generator) {
     const value_ssid = generator.valueToCode(block, 'ssid', Blockly.JavaScript.ORDER_ATOMIC);
     const value_pwd = generator.valueToCode(block, 'pwd', Blockly.JavaScript.ORDER_ATOMIC);
     const statement_success = generator.statementToCode(block, 'success');
@@ -71,7 +71,7 @@ Blockly.JavaScript.forBlock['espruino_wifi'] = function (block, generator) {
     });\n`;
 };
 
-Blockly.Blocks['espruino_wifi_get_ip'] = {
+Blockly.Blocks.espruino_wifi_get_ip = {
     init: function () {
         this.jsonInit({
             "type": "espruino_wifi_get_ip",
@@ -90,12 +90,12 @@ Blockly.Blocks['espruino_wifi_get_ip'] = {
     }
 };
 
-Blockly.JavaScript.forBlock['espruino_wifi_get_ip'] = function (block, generator) {
+Blockly.JavaScript.forBlock.espruino_wifi_get_ip = function (block, generator) {
     var code = "require('Wifi').getIP().ip";
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 
-Blockly.Blocks['espruino_console_log'] = {
+Blockly.Blocks.espruino_console_log = {
     init: function () {
         this.jsonInit({
             "type": "espruino_console_log",
@@ -122,12 +122,12 @@ Blockly.Blocks['espruino_console_log'] = {
     }
 };
 
-Blockly.JavaScript.forBlock['espruino_console_log'] = function (block, generator) {
+Blockly.JavaScript.forBlock.espruino_console_log = function (block, generator) {
     const value_name = generator.valueToCode(block, 'VAL', Blockly.JavaScript.ORDER_ATOMIC);
     return `console.log(${value_name});\n`;
 }
 
-Blockly.Blocks['espruino_start'] = {
+Blockly.Blocks.espruino_start = {
     init: function () {
         this.jsonInit({
 
@@ -146,7 +146,7 @@ Blockly.Blocks['espruino_start'] = {
     }
 };
 
-Blockly.JavaScript.forBlock['espruino_start'] = function (block, generator) {
+Blockly.JavaScript.forBlock.espruino_start = function (block, generator) {
     const statement_name = generator.statementToCode(block, 'NAME');
     return `(function (){
         ${statement_name}

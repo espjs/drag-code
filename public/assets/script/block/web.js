@@ -17,8 +17,6 @@ Blockly.JavaScript.forBlock.espruino_start_http_server = function (block, genera
     const port = block.getFieldValue('PORT');
 
     const statement_request = generator.statementToCode(block, 'REQUEST');
-
-    // TODO: Assemble javascript into the code variable.
     const code = `require("http").createServer((req, res) => {
                     // res.writeHead(200, {'Content-Type': 'text/plain'});
                     // res.end('Hello World');
@@ -98,4 +96,43 @@ Blockly.Blocks.espruino_web_server_get_url = {
 Blockly.JavaScript.forBlock.espruino_web_server_get_url = function (block, generator) {
     const code = 'req.url';
     return [code, javascript.Order.NONE];
+}
+
+Blockly.Blocks.espruino_web_server_set_header = {
+    init: function () {
+        this.appendValueInput('NAME')
+            .appendField('设置响应头');
+        this.appendValueInput('VALUE')
+            .appendField('为');
+        this.setInputsInline(true)
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour(225);
+    },
+    inputs: {
+        NAME: {
+            block: {
+                type: 'text',
+                fields: {
+                    TEXT: "Content-Type"
+                }
+            }
+        },
+        VALUE: {
+            block: {
+                type: 'text',
+                fields: {
+                    TEXT: "text/html; charset=utf-8"
+                }
+            }
+        }
+    }
+};
+Blockly.JavaScript.forBlock.espruino_web_server_set_header = function (block, generator) {
+    const value_name = generator.valueToCode(block, 'NAME', javascript.Order.ATOMIC);
+    const value_value = generator.valueToCode(block, 'VALUE', javascript.Order.ATOMIC);
+    const code = `res.setHeader(${value_name}, ${value_value});\n`;
+    return code;
 }

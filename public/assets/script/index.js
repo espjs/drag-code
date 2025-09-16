@@ -75,19 +75,19 @@ async function 等待(毫秒) {
 
 function 显示日志(日志信息) {
     var console = document.getElementById('consoleContent');
-    console.innerHTML += `<div class="console-output">${日志信息}</div>`;
+    console.innerHTML += `<div class="console-output">${日志信息.replace(/\s/g, '&nbsp;')}</div>`;
     console.scrollTop = console.scrollHeight;
 }
 
 function 显示错误日志(错误信息) {
     var console = document.getElementById('consoleContent');
-    console.innerHTML += `<div class="console-output error">${错误信息}</div>`;
+    console.innerHTML += `<div class="console-output error">${错误信息.replace(/\s/g, '&nbsp;')}</div>`;
     console.scrollTop = console.scrollHeight;
 }
 
 function 显示成功日志(提示信息) {
     var console = document.getElementById('consoleContent');
-    console.innerHTML += `<div class="console-output success">${提示信息}</div>`;
+    console.innerHTML += `<div class="console-output success">${提示信息.replace(/\s/g, '&nbsp;')}</div>`;
     console.scrollTop = console.scrollHeight;
 }
 
@@ -154,12 +154,19 @@ async function 写入设备() {
     await 连接开发板();
 
     显示日志('获取代码');
-    var code = monaco.workspace.getValue();
+    var 代码 = monaco.workspace.getValue();
+    var 模块代码 = '';
 
-    code = 'require("Storage").write(".bootcde", `' + code + '`);E.reboot();';
-    显示日志('正在发送代码');
-    await 发送代码(code);
-
+    var 用到的模块列表 = 提取模块(代码);
+    for (var i = 0; i < 用到的模块列表.length; i++) {
+        var 模块名 = 用到的模块列表[i];
+        var 模块源码 = await 获取模块源码(模块名);
+        模块代码 += `require("Storage").write("${模块名}", \`${模块源码}\`);\n`;
+    }
+    var 要发送的代码 = `${模块代码}\nrequire("Storage").write(".bootcde", \`${代码}\`);E.reboot();\n`;
+    显示日志('正在写入代码...');
+    await 发送代码(要发送的代码);
+    显示日志('代码写入完成!');
 }
 
 async function 发送代码(code) {
@@ -168,6 +175,24 @@ async function 发送代码(code) {
     await writer.write(data);
     writer.releaseLock();
     writer = null;
+}
+
+function 提取模块(code) {
+    var 内置模块 = ['Wifi', 'http', 'Storage', 'Bangle'];
+    var reg = /require\(["'](.+)["']\)/g;
+    var modules = [];
+    while ((match = reg.exec(code)) != null) {
+        var module = match[1];
+        if (!modules.includes(module) && !内置模块.includes(module)) {
+            modules.push(module);
+        }
+    }
+
+    return modules;
+}
+
+async function 获取模块源码(模块名) {
+    return await fetch(`/modules/${模块名}.min.js`).then(res => res.text());
 }
 
 async function 断开连接() {
