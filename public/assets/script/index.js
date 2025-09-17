@@ -136,16 +136,7 @@ async function 监听串口数据() {
     }
 }
 async function 运行代码() {
-    显示日志('连接开发板');
-    await 连接开发板();
-
-    显示日志('获取代码');
-    var code = monaco.workspace.getValue();
-
-    显示日志('正在发送代码');
-    await 发送代码(code);
-
-    显示日志('运行代码完成');
+    写入设备();
 }
 
 async function 写入设备() {
@@ -153,20 +144,27 @@ async function 写入设备() {
     显示日志('连接开发板');
     await 连接开发板();
 
+    await 发送代码('echo(false);');
+    await 等待(100);
+
     显示日志('获取代码');
     var 代码 = monaco.workspace.getValue();
-    var 模块代码 = '';
 
     var 用到的模块列表 = 提取模块(代码);
+    显示日志('提取到的模块: ' + 用到的模块列表.join(','));
     for (var i = 0; i < 用到的模块列表.length; i++) {
         var 模块名 = 用到的模块列表[i];
+        显示日志('正在写入模块: ' + 模块名);
         var 模块源码 = await 获取模块源码(模块名);
-        模块代码 += `require("Storage").write("${模块名}", \`${模块源码}\`);\n`;
+        await 将文件写入设备(模块名, 模块源码);
     }
-    var 要发送的代码 = `${模块代码}\nrequire("Storage").write(".bootcde", \`${代码}\`);E.reboot();\n`;
-    显示日志('正在写入代码...');
-    await 发送代码(要发送的代码);
+    显示日志('正在写入启动文件...');
+    await 将文件写入设备('.bootcde', 代码);
     显示日志('代码写入完成!');
+
+    await 等待(500);
+    显示日志('重启设备');
+    await 发送代码('E.reboot();');
 }
 
 async function 发送代码(code) {
@@ -178,8 +176,8 @@ async function 发送代码(code) {
 }
 
 function 提取模块(code) {
-    var 内置模块 = ['Wifi', 'http', 'Storage', 'Bangle'];
-    var reg = /require\(["'](.+)["']\)/g;
+    var 内置模块 = ['Flash', 'Storage', 'heatshrink', 'net', 'dgram', 'http', 'NetworkJS', 'Wifi', 'ESP8266', 'TelnetServer', 'crypto', 'neopixel'];
+    var reg = /require\(["'](.+)?["']\)/g;
     var modules = [];
     while ((match = reg.exec(code)) != null) {
         var module = match[1];
@@ -193,6 +191,29 @@ function 提取模块(code) {
 
 async function 获取模块源码(模块名) {
     return await fetch(`/modules/${模块名}.min.js`).then(res => res.text());
+}
+
+async function 将文件写入设备(文件名, 代码) {
+    var 代码长度 = 代码.length;
+    var 分块大小 = 30;
+    var 要执行的命令 = '';
+
+    if (代码长度 < 分块大小) {
+        要执行的命令 = `require('Storage').write('${文件名}', atob("${btoa(代码)}"));`;
+        显示日志('发送代码: ' + 要执行的命令);
+        await 发送代码(要执行的命令);
+        return;
+    }
+
+    for (var i = 0; i < Math.ceil(代码长度 / 分块大小); i++) {
+        var 分块 = 代码.substring(i * 分块大小, i * 分块大小 + 分块大小);
+        if (i == 0) {
+            要执行的命令 = `require('Storage').write('${文件名}', atob("${btoa(分块)}"), 0, ${代码长度});`
+        } else {
+            要执行的命令 = `require('Storage').write('${文件名}', atob("${btoa(分块)}"), ${i * 分块大小});`
+        }
+        await 发送代码(要执行的命令);
+    }
 }
 
 async function 断开连接() {

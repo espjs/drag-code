@@ -13,6 +13,20 @@
         return blockList;
     }
 
+    function getCategory(name) {
+        var blockList = [];
+        for (var key in Blockly.Blocks) {
+            if (Blockly.Blocks[key].category == name) {
+                blockList.push({
+                    kind: 'block',
+                    type: key,
+                    inputs: typeof Blockly.Blocks[key].inputs == 'object' ? Blockly.Blocks[key].inputs : {},
+                });
+            }
+        }
+        return blockList;
+    }
+
     const toolbox = {
         // There are two kinds of toolboxes. The simpler one is a flyout toolbox.
         kind: 'categoryToolbox',
@@ -56,7 +70,28 @@
             {
                 "kind": "category",
                 "name": "Espruino",
-                "contents": getBlock('espruino'),
+                "contents": getCategory('Espruino'),
+            },
+            {
+                "kind": "category",
+                "name": "网络",
+                "contents": [
+                    {
+                        "kind": "category",
+                        "name": "Wifi连接",
+                        "contents": getCategory('wifi'),
+                    },
+                    {
+                        "kind": "category",
+                        "name": "Web服务",
+                        "contents": getCategory('web'),
+                    },
+                    {
+                        "kind": "category",
+                        "name": "MQTT服务",
+                        "contents": getCategory('mqtt'),
+                    },
+                ]
             },
             {
                 "kind": "category",

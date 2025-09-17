@@ -1,4 +1,5 @@
 Blockly.Blocks.espruino_start_http_server = {
+    category: 'web',
     init: function () {
         this.appendDummyInput('NAME')
             .appendField('启动网站服务器')
@@ -27,6 +28,7 @@ Blockly.JavaScript.forBlock.espruino_start_http_server = function (block, genera
 
 
 Blockly.Blocks.espruino_web_server_response_end = {
+    category: 'web',
     init: function () {
         this.appendValueInput('VALUE')
             .appendField('结束请求并输出');
@@ -52,6 +54,7 @@ Blockly.JavaScript.forBlock.espruino_web_server_response_end = function (block, 
 
 
 Blockly.Blocks.espruino_web_server_request = {
+    category: 'web',
     init: function () {
         this.appendValueInput('URL')
             .appendField('如果请求地址是');
@@ -84,6 +87,7 @@ Blockly.JavaScript.forBlock.espruino_web_server_request = function (block, gener
 }
 
 Blockly.Blocks.espruino_web_server_get_url = {
+    category: 'web',
     init: function () {
         this.appendEndRowInput('URL')
             .appendField('获取请求地址');
@@ -99,6 +103,7 @@ Blockly.JavaScript.forBlock.espruino_web_server_get_url = function (block, gener
 }
 
 Blockly.Blocks.espruino_web_server_set_header = {
+    category: 'web',
     init: function () {
         this.appendValueInput('NAME')
             .appendField('设置响应头');
