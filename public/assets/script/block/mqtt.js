@@ -98,39 +98,34 @@ Blockly.JavaScript.forBlock.espruino_mqtt_connect = function (block, generator) 
     const statement_disconnected = generator.statementToCode(block, 'disconnected');
     const statement_error = generator.statementToCode(block, 'error');
     const code = `
-        (() => {
-            var server = ${value_server};
-            var options = {
-                client_id : "random", 
-                keep_alive: 60, 
-                port: ${value_port},  
-                clean_session: true,
-                username: ${value_username},  
-                password: ${value_password},  
-                protocol_name: "MQTT", 
-                protocol_level: 4, 
-            };
-            global.mqtt = MQTT.create(server, options);
+        global.mqtt = MQTT.create(${value_server}, {
+            client_id : "random", 
+            keep_alive: 60, 
+            port: ${value_port},  
+            clean_session: true,
+            username: ${value_username},  
+            password: ${value_password},  
+            protocol_name: "MQTT", 
+            protocol_level: 4, 
+        });
 
-            global.mqtt.on('connected', function() {
-                ${statement_success}
-            });
+        global.mqtt.on('connected', function() {
+            ${statement_success}
+        });
 
-            global.mqtt.on('publish', function (pub) {
-                ${statement_publish}
-            });
+        global.mqtt.on('publish', function (pub) {
+            ${statement_publish}
+        });
 
-            global.mqtt.on('disconnected', function() {
-                ${statement_disconnected}
-            });
+        global.mqtt.on('disconnected', function() {
+            ${statement_disconnected}
+        });
 
-            global.mqtt.on('error', function (message) {
-                ${statement_error}
-            });
+        global.mqtt.on('error', function (message) {
+            ${statement_error}
+        });
 
-            global.mqtt.connect();
-        })();
-        
+        global.mqtt.connect();
     `;
     return code;
 }
@@ -164,6 +159,47 @@ Blockly.JavaScript.forBlock.espruino_mqtt_subscribe = function (block, generator
     var code = `global.mqtt.subscribe(${value_topic});`;
     return code;
 }
+
+Blockly.Blocks.espruino_mqtt_publish = {
+    category: 'mqtt',
+    init: function () {
+        this.appendValueInput('topic')
+            .appendField('发布主题');
+        this.appendValueInput('message')
+            .appendField('内容');
+        this.setInputsInline(true)
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour(225);
+    },
+    inputs: {
+        topic: {
+            block: {
+                type: "text",
+                fields: {
+                    "TEXT": "topic"
+                }
+            }
+        },
+        message: {
+            block: {
+                type: "text",
+                fields: {
+                    "TEXT": "message"
+                }
+            }
+        },
+    }
+};
+Blockly.JavaScript.forBlock.espruino_mqtt_publish = function (block, generator) {
+    const value_topic = generator.valueToCode(block, 'topic', javascript.Order.ATOMIC);
+    const value_message = generator.valueToCode(block, 'message', javascript.Order.ATOMIC);
+    var code = `global.mqtt.publish(${value_topic}, ${value_message});`;
+    return code;
+}
+
 
 
 Blockly.Blocks.espruino_mqtt_unsubscribe = {
@@ -212,6 +248,46 @@ Blockly.Blocks.espruino_mqtt_reconnect = {
 Blockly.JavaScript.forBlock.espruino_mqtt_reconnect = function () {
     return 'global.mqtt.connect();\n';
 }
+
+
+Blockly.Blocks.espruino_mqtt_query_topic = {
+    category: 'mqtt',
+    init: function () {
+        this.appendValueInput('topic')
+            .setCheck('String')
+            .appendField('如果主题是');
+        this.appendStatementInput('do')
+            .appendField('执行');
+        this.setInputsInline(true)
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour(225);
+    },
+    inputs: {
+        topic: {
+            block: {
+                type: "text",
+                fields: {
+                    "TEXT": "topic"
+                }
+            }
+        },
+    },
+};
+
+Blockly.JavaScript.forBlock.espruino_mqtt_query_topic = function (block, generator) {
+    const value_topic = generator.valueToCode(block, 'topic', javascript.Order.ATOMIC);
+    const statement_do = generator.statementToCode(block, 'do');
+    const code = `
+        if (pub.topic === ${value_topic}) {
+            ${statement_do}
+        }
+    `;
+    return code;
+}
+
 
 
 Blockly.Blocks.espruino_mqtt_topic = {

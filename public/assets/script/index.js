@@ -177,7 +177,7 @@ async function 发送代码(code) {
 
 function 提取模块(code) {
     var 内置模块 = ['Flash', 'Storage', 'heatshrink', 'net', 'dgram', 'http', 'NetworkJS', 'Wifi', 'ESP8266', 'TelnetServer', 'crypto', 'neopixel'];
-    var reg = /require\(["'](.+)?["']\)/g;
+    var reg = /require\(["']([^\'\"]*)["']\)/g;
     var modules = [];
     while ((match = reg.exec(code)) != null) {
         var module = match[1];
@@ -195,7 +195,7 @@ async function 获取模块源码(模块名) {
 
 async function 将文件写入设备(文件名, 代码) {
     var 代码长度 = 代码.length;
-    var 分块大小 = 30;
+    var 分块大小 = 100;
     var 要执行的命令 = '';
 
     if (代码长度 < 分块大小) {

@@ -18,11 +18,11 @@ Blockly.JavaScript.forBlock.espruino_start_http_server = function (block, genera
     const port = block.getFieldValue('PORT');
 
     const statement_request = generator.statementToCode(block, 'REQUEST');
-    const code = `require("http").createServer((req, res) => {
-                    // res.writeHead(200, {'Content-Type': 'text/plain'});
-                    // res.end('Hello World');
-                    ${statement_request}
-                }).listen(${port});\n`;
+    const code = `
+        require("http").createServer((req, res) => {
+            ${statement_request}
+        }).listen(${port});
+    `;
     return code;
 }
 
