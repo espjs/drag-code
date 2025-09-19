@@ -173,7 +173,10 @@ Blockly.JavaScript.forBlock.espruino_wifi_first_config = function (block, genera
     const value_ssid = generator.valueToCode(block, 'ssid', javascript.Order.ATOMIC);
     const value_password = generator.valueToCode(block, 'password', javascript.Order.ATOMIC);
     const statement_success = generator.statementToCode(block, 'success');
-    return  `(() => {
+    return `(() => {
+            // @assets('index.html', 'wifi/index.html');
+            // @assets('index.css', 'wifi/index.css');
+            // @assets('index.js', 'wifi/index.js');
             var connect = function (ssid, password) { 
                 require("Wifi").connect(ssid, { password: password }, function (err) {
                     if (err) {
@@ -197,7 +200,13 @@ Blockly.JavaScript.forBlock.espruino_wifi_first_config = function (block, genera
             });
 
             require("http").createServer((req, res) => {
-                if (req.url.startsWith("/config")) {
+                if (req.url === "/") {
+                    res.end(require("Storage").read("index.html"));
+                } else if (req.url === "/index.css") {
+                    res.end(require("Storage").read("index.css"));
+                } else if (req.url === "/index.js") {
+                    res.end(require("Storage").read("index.js"));
+                } else if (req.url.startsWith("/config")) {
                     var urlParse = url.parse(req.url, true);
                     if (urlParse.query.ssid && urlParse.query.password) {
                         connect(urlParse.query.ssid, urlParse.query.password)
@@ -206,6 +215,10 @@ Blockly.JavaScript.forBlock.espruino_wifi_first_config = function (block, genera
                 } else if (req.url.startsWith("/check")) {
                     require("Wifi").getStatus(function (status) {
                         res.end(JSON.stringify(status));
+                    });
+                } else if (req.url.startsWith("/scan")) {
+                    require("Wifi").scan(function (ap_list) {
+                        res.end(JSON.stringify(ap_list));
                     });
                 } else {
                     res.end("404: " + req.url);
@@ -266,5 +279,23 @@ Blockly.Blocks.espruino_wifi_get_mac = {
 Blockly.JavaScript.forBlock.espruino_wifi_get_mac = function (block, generator) {
     var code = "require('Wifi').getIP().mac";
     return [code, Blockly.JavaScript.ORDER_NONE];
+}
+
+
+Blockly.Blocks.espruino_wifi_stop_ap = {
+    category: 'wifi',
+    init: function () {
+        this.appendDummyInput('NAME')
+            .appendField('停止无线热点');
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour(270);
+    }
+};
+
+Blockly.JavaScript.forBlock.espruino_wifi_stop_ap = function (block, generator) {
+    return 'require("Wifi").stopAP();';
 }
 

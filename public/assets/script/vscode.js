@@ -1,8 +1,5 @@
 (() => {
-    显示日志('初始化代码编辑器中...');
     let editor;
-    let currentLanguage = 'javascript';
-
     // 配置Monaco Editor
     require.config({
         paths: {
@@ -16,7 +13,7 @@
         // 创建编辑器实例
         editor = monaco.editor.create(document.getElementById('codeDisplay'), {
             value: code,
-            language: currentLanguage,
+            language: 'javascript',
             theme: 'vs-dark',
             fontSize: 14,
             lineNumbers: 'on',
@@ -43,14 +40,12 @@
 
         // 监听内容变化
         editor.onDidChangeModelContent(() => {
-            updateStatus('已修改');
+            // updateStatus('已修改');
         });
 
         // 监听语言变化
         editor.onDidChangeModelLanguage(() => {
-            const model = editor.getModel();
-            currentLanguage = model.getLanguageId();
-            updateStatus(`语言: ${currentLanguage}`);
+            // const model = editor.getModel();
         });
 
         // 添加快捷键
@@ -74,12 +69,5 @@
         });
 
         monaco.workspace = editor;
-
-        显示日志('编辑器初始化完成');
     });
-
-    function updateStatus(msg) {
-        document.getElementById('status').innerHTML = msg;
-    }
-
 })();

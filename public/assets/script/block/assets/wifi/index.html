@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi配网</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>WiFi配网</h1>
+        <form>
+            <div class="form-group">
+                <label for="wifi-select">选择WiFi网络</label>
+                <button type="button" class="refresh-btn" onclick="loadWifiNetworks()">刷新网络列表</button>
+                <select id="wifi-select">
+                    <option value="">正在加载网络...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="password">WiFi密码</label>
+                <input type="password" id="password" placeholder="请输入WiFi密码">
+            </div>
+
+            <button type="button" onclick="connect()" id="connect-btn">连接</button>
+        </form>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
