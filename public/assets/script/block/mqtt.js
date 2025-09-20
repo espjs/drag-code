@@ -99,14 +99,14 @@ Blockly.JavaScript.forBlock.espruino_mqtt_connect = function (block, generator) 
     const statement_error = generator.statementToCode(block, 'error');
     const code = `
         global.mqtt = MQTT.create(${value_server}, {
-            client_id : "random", 
-            keep_alive: 60, 
-            port: ${value_port},  
+            client_id : "random",
+            keep_alive: 60,
+            port: ${value_port},
             clean_session: true,
-            username: ${value_username},  
-            password: ${value_password},  
-            protocol_name: "MQTT", 
-            protocol_level: 4, 
+            username: ${value_username},
+            password: ${value_password},
+            protocol_name: "MQTT",
+            protocol_level: 4
         });
 
         global.mqtt.on('connected', function() {

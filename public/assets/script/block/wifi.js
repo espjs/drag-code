@@ -62,14 +62,14 @@ Blockly.JavaScript.forBlock.espruino_wifi = function (block, generator) {
     const value_pwd = generator.valueToCode(block, 'pwd', Blockly.JavaScript.ORDER_ATOMIC);
     const statement_success = generator.statementToCode(block, 'success');
     const statement_error = generator.statementToCode(block, 'error');
-    // TODO: Assemble javascript into the code variable.
     return `require('Wifi').connect(${value_ssid}, {password: ${value_pwd}}, function (err) {
         if (err) {
             ${statement_error}
-        } else {     
-            ${statement_success}       
-        }        
-    });\n`;
+            return;
+        } 
+
+        ${statement_success}
+    });`;
 };
 
 Blockly.Blocks.espruino_wifi_start_ap = {
@@ -181,10 +181,10 @@ Blockly.JavaScript.forBlock.espruino_wifi_first_config = function (block, genera
                 require("Wifi").connect(ssid, { password: password }, function (err) {
                     if (err) {
                         console.log("Error: " + err);
-                    } else {
-                        require("Storage").writeJSON('wifi_config', {ssid: ssid, password: password});
-                        ${statement_success}
+                        return;
                     }
+                    require("Storage").writeJSON('wifi_config', {ssid: ssid, password: password});
+                    ${statement_success}
                 });
             };
 
@@ -196,7 +196,6 @@ Blockly.JavaScript.forBlock.espruino_wifi_first_config = function (block, genera
 
             require("Wifi").startAP(${value_ssid}, {
                 password: ${value_password}
-                
             });
 
             require("http").createServer((req, res) => {

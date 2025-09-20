@@ -61,9 +61,10 @@ class 设备 {
     }
 
     async 写入文件(文件名, 内容) {
-        // 内容 = 内容.replace(/\r\n/g, '\n');
+        内容 = 内容.replace(/\r\n/g, '\n');
+        // 内容 = 内容.replace(/\\/g, '\\\\');
         var 内容长度 = this.获取字符串长度(内容);
-        var 分块大小 = 50;
+        var 分块大小 = 60;
         var 要执行的命令 = '';
 
         if (内容长度 < 分块大小) {
@@ -75,14 +76,15 @@ class 设备 {
         var 当前开始位置 = 0;
         for (var i = 0; i < Math.ceil(内容.length / 分块大小); i++) {
             var 分块 = 内容.substring(i * 分块大小, i * 分块大小 + 分块大小);
+            var 转换后的分块 = 分块.replace(/\\/g, '\\\\');
             if (当前开始位置 == 0) {
-                要执行的命令 = `require('Storage').write('${文件名}', \`${分块}\`, 0, ${内容长度});`
+                要执行的命令 = `require('Storage').write('${文件名}', \`${转换后的分块}\`, 0, ${内容长度});`
             } else {
-                要执行的命令 = `require('Storage').write('${文件名}',\`${分块}\`, ${当前开始位置});`
+                要执行的命令 = `require('Storage').write('${文件名}',\`${转换后的分块}\`, ${当前开始位置});`
             }
             await this.发送代码(要执行的命令);
             当前开始位置 += this.获取字符串长度(分块);
-            await this.等待(10);
+            await this.等待(20);
         }
     }
 
