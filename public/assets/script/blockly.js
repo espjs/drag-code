@@ -74,6 +74,11 @@
             },
             {
                 "kind": "category",
+                "name": "ESP8266",
+                "contents": getCategory('esp8266'),
+            },
+            {
+                "kind": "category",
                 "name": "网络",
                 "contents": [
                     {
@@ -110,6 +115,32 @@
                 "name": "全部",
                 "contents": getBlock('')
             },
+            {
+                "kind": "category",
+                "name": "创建块",
+                "contents": [
+                    {
+                        "kind": "category",
+                        "name": "输入",
+                        "contents": getCategory('create_block_input'),
+                    },
+                    {
+                        "kind": "category",
+                        "name": "字段",
+                        "contents": getCategory('create_block_fields'),
+                    },
+                    {
+                        "kind": "category",
+                        "name": "连接检测",
+                        "contents": getCategory('create_block_connection_check'),
+                    },
+                    {
+                        "kind": "category",
+                        "name": "颜色",
+                        "contents": getCategory('create_block_colour'),
+                    }
+                ]
+            }
 
         ]
     };
