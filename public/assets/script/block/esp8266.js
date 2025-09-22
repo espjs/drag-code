@@ -60,7 +60,7 @@ Blockly.JavaScript.forBlock.espruino_console_log = function (block, generator) {
 
 
 
-Blockly.Blocks.espruino_led = {
+Blockly.Blocks.esp8266_led = {
     category: 'esp8266',
     init: function () {
         this.appendDummyInput('NAME')
@@ -79,7 +79,7 @@ Blockly.Blocks.espruino_led = {
     }
 };
 
-Blockly.JavaScript.forBlock.espruino_led = function (block, generator) {
+Blockly.JavaScript.forBlock.esp8266_led = function (block, generator) {
     var dropdown_status = block.getFieldValue('status');
     if (dropdown_status == 'reverse') {
         dropdown_status = '!digitalRead(NodeMCU.D4)';
@@ -89,8 +89,55 @@ Blockly.JavaScript.forBlock.espruino_led = function (block, generator) {
     return `digitalWrite(NodeMCU.D4, ${status});global.led_status = ${status};\n`;
 };
 
+Blockly.Blocks.esp8266_led_blink = {
+    category: 'esp8266',
+    init: function () {
+        this.appendDummyInput('NAME')
+            .appendField('闪烁指示灯, 间隔')
+            .appendField(new Blockly.FieldTextInput('500'), 'time')
+            .appendField('毫秒');
+        this.setInputsInline(true)
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour(225);
+    }
+};
 
-Blockly.Blocks.espruino_pin_gpio = {
+Blockly.JavaScript.forBlock.esp8266_led_blink = function (block, generator) {
+    const text_time = block.getFieldValue('time');
+    return `global.led_st = setInterval(() => {
+                global.led_status = !global.led_status;
+                digitalWrite(NodeMCU.D4, global.led_status);
+            }, ${text_time});\n`;
+};
+
+Blockly.Blocks.esp8266_stop_led_blink = {
+    category: 'esp8266',
+    init: function () {
+        this.appendDummyInput('NAME')
+            .appendField('停止闪烁指示灯');
+        this.setInputsInline(true)
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour(225);
+    }
+};
+
+Blockly.JavaScript.forBlock.esp8266_stop_led_blink = function (block, generator) {
+    const text_time = block.getFieldValue('time');
+    return `if (global.led_st) {
+                clearInterval(global.led_st);
+                global.led_st = null;
+            };
+            digitalWrite(NodeMCU.D4, 1);\n`;
+};
+
+
+Blockly.Blocks.esp8266_pin_gpio = {
     category: 'esp8266',
     init: function () {
         this.appendDummyInput('gpio')
@@ -103,7 +150,7 @@ Blockly.Blocks.espruino_pin_gpio = {
     }
 };
 
-Blockly.JavaScript.forBlock.espruino_pin_gpio = function () {
+Blockly.JavaScript.forBlock.esp8266_pin_gpio = function () {
     const text_name = this.getFieldValue('NAME');
     const code = text_name;
     return [code, Blockly.JavaScript.ORDER_ATOMIC];

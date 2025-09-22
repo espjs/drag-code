@@ -1,3 +1,8 @@
+Blockly.Msg["VARIABLES_DEFAULT_NAME"] = "变量名";
+
+Blockly.Msg["PROCEDURES_DEFNORETURN_PROCEDURE"] = "新函数名";
+Blockly.Msg["PROCEDURES_DEFNORETURN_TITLE"] = "创建函数";
+
 Blockly.Msg.ESPRUINO_WAIT = '等待';
 Blockly.Msg.ESPRUINO_SECONDS = '秒';
 Blockly.Msg.ESPRUINO_WAIT_TOOLTIP = '延迟一定时间';

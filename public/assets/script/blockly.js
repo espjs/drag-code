@@ -35,7 +35,7 @@
             {
                 "kind": "category",
                 "name": "变量",
-                "contents": getBlock('variables'),
+                "custom": "VARIABLE_DYNAMIC"
             },
             {
                 "kind": "category",
@@ -60,7 +60,8 @@
             {
                 "kind": "category",
                 "name": "函数",
-                "contents": getBlock('procedures'),
+                // "contents": getBlock('procedures'),
+                "custom": 'PROCEDURE',
             },
             {
                 "kind": "category",
@@ -97,6 +98,33 @@
                         "contents": getCategory('mqtt'),
                     },
                 ]
+            },
+            {
+                "kind": "category",
+                "name": "传感器",
+                "contents": [
+                    {
+                        "kind": "category",
+                        "name": "温湿度DHT11",
+                        "contents": getBlock('dht11'),
+                    },
+                    {
+                        "kind": "category",
+                        "name": "温度DS8B20",
+                        "contents": getBlock('ds18b20'),
+                    },
+                    {
+                        "kind": "category",
+                        "name": "超声波",
+                        "contents": getBlock('HC-SR04'),
+                    },
+                    {
+                        "kind": "category",
+                        "name": "红外线",
+                        "contents": getBlock('ir'),
+                    },
+                ],
+
             },
             {
                 "kind": "category",
