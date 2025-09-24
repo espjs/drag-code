@@ -45,12 +45,14 @@ Blockly.Blocks.espruino_console_log = {
             "colour": 0
         });
     },
-    inputs: {
-        VAL: {
-            "block": {
-                "type": "text",
-            }
-        },
+    toolbox: {
+        inputs: {
+            VAL: {
+                "shadow": {
+                    "type": "text",
+                }
+            },
+        }
     }
 };
 Blockly.JavaScript.forBlock.espruino_console_log = function (block, generator) {

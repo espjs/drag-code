@@ -3,10 +3,11 @@
         var blockList = [];
         for (var key in Blockly.Blocks) {
             if (key.startsWith(start)) {
+                var toolbox = typeof Blockly.Blocks[key].toolbox == 'object' ? Blockly.Blocks[key].toolbox : {};
                 blockList.push({
                     kind: 'block',
                     type: key,
-                    inputs: typeof Blockly.Blocks[key].inputs == 'object' ? Blockly.Blocks[key].inputs : {},
+                    ...toolbox
                 });
             }
         }
@@ -17,10 +18,11 @@
         var blockList = [];
         for (var key in Blockly.Blocks) {
             if (Blockly.Blocks[key].category == name) {
+                var toolbox = typeof Blockly.Blocks[key].toolbox == 'object' ? Blockly.Blocks[key].toolbox : {};
                 blockList.push({
                     kind: 'block',
                     type: key,
-                    inputs: typeof Blockly.Blocks[key].inputs == 'object' ? Blockly.Blocks[key].inputs : {},
+                    ...toolbox
                 });
             }
         }
@@ -103,26 +105,26 @@
                 "kind": "category",
                 "name": "传感器",
                 "contents": [
+                    // {
+                    //     "kind": "category",
+                    //     "name": "温湿度DHT11",
+                    //     "contents": getBlock('dht11'),
+                    // },
                     {
                         "kind": "category",
-                        "name": "温湿度DHT11",
-                        "contents": getBlock('dht11'),
+                        "name": "温度DS18B20",
+                        "contents": getBlock('DS18B20'),
                     },
-                    {
-                        "kind": "category",
-                        "name": "温度DS8B20",
-                        "contents": getBlock('ds18b20'),
-                    },
-                    {
-                        "kind": "category",
-                        "name": "超声波",
-                        "contents": getBlock('HC-SR04'),
-                    },
-                    {
-                        "kind": "category",
-                        "name": "红外线",
-                        "contents": getBlock('ir'),
-                    },
+                    // {
+                    //     "kind": "category",
+                    //     "name": "超声波",
+                    //     "contents": getBlock('HC-SR04'),
+                    // },
+                    // {
+                    //     "kind": "category",
+                    //     "name": "红外线",
+                    //     "contents": getBlock('ir'),
+                    // },
                 ],
 
             },

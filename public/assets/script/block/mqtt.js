@@ -49,43 +49,45 @@ Blockly.Blocks.espruino_mqtt_connect = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        server: {
-            block: {
-                type: "text",
-                fields: {
-                    "TEXT": "broker.emqx.io"
+    toolbox: {
+        inputs: {
+            server: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": "broker.emqx.io"
+                    }
                 }
-            }
-        },
-        port: {
-            block: {
-                type: "text",
-                fields: {
-                    "TEXT": "1883"
+            },
+            port: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": "1883"
+                    }
                 }
-            }
-        },
-        username: {
-            block: {
-                type: "text",
-                fields: {
-                    "TEXT": ""
+            },
+            username: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": ""
+                    }
                 }
-            }
-        },
-        password: {
-            block: {
-                type: "text",
-                fields: {
-                    "TEXT": ""
+            },
+            password: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": ""
+                    }
                 }
-            }
-        },
-        // success: 'success',
-        // publish: 'publish',
-        // disconnected: 'disconnected',
-        // error: 'error'
+            },
+            // success: 'success',
+            // publish: 'publish',
+            // disconnected: 'disconnected',
+            // error: 'error'
+        }
     }
 };
 Blockly.JavaScript.forBlock.espruino_mqtt_connect = function (block, generator) {
@@ -143,15 +145,17 @@ Blockly.Blocks.espruino_mqtt_subscribe = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        topic: {
-            block: {
-                type: "text",
-                fields: {
-                    "TEXT": "topic"
+    toolbox: {
+        inputs: {
+            topic: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": "topic"
+                    }
                 }
-            }
-        },
+            },
+        }
     }
 };
 Blockly.JavaScript.forBlock.espruino_mqtt_subscribe = function (block, generator) {
@@ -174,23 +178,25 @@ Blockly.Blocks.espruino_mqtt_publish = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        topic: {
-            block: {
-                type: "text",
-                fields: {
-                    "TEXT": "topic"
+    toolbox: {
+        inputs: {
+            topic: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": "topic"
+                    }
                 }
-            }
-        },
-        message: {
-            block: {
-                type: "text",
-                fields: {
-                    "TEXT": "message"
+            },
+            message: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": "message"
+                    }
                 }
-            }
-        },
+            },
+        }
     }
 };
 Blockly.JavaScript.forBlock.espruino_mqtt_publish = function (block, generator) {
@@ -214,15 +220,17 @@ Blockly.Blocks.espruino_mqtt_unsubscribe = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        topic: {
-            block: {
-                type: "text",
-                fields: {
-                    "TEXT": "topic"
+    toolbox: {
+        inputs: {
+            topic: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": "topic"
+                    }
                 }
-            }
-        },
+            },
+        }
     }
 };
 
@@ -265,16 +273,18 @@ Blockly.Blocks.espruino_mqtt_query_topic = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        topic: {
-            block: {
-                type: "text",
-                fields: {
-                    "TEXT": "topic"
+    toolbox: {
+        inputs: {
+            topic: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": "topic"
+                    }
                 }
-            }
-        },
-    },
+            },
+        }
+    }
 };
 
 Blockly.JavaScript.forBlock.espruino_mqtt_query_topic = function (block, generator) {

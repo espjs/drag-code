@@ -38,10 +38,12 @@ Blockly.Blocks.espruino_web_server_response_end = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        VALUE: {
-            block: {
-                type: 'text',
+    toolbox: {
+        inputs: {
+            VALUE: {
+                block: {
+                    type: 'text',
+                }
             }
         }
     }
@@ -66,10 +68,12 @@ Blockly.Blocks.espruino_web_server_request = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        URL: {
-            block: {
-                type: 'text',
+    toolbox: {
+        inputs: {
+            URL: {
+                block: {
+                    type: 'text',
+                }
             }
         }
     }
@@ -116,20 +120,22 @@ Blockly.Blocks.espruino_web_server_set_header = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        NAME: {
-            block: {
-                type: 'text',
-                fields: {
-                    TEXT: "Content-Type"
+    toolbox: {
+        inputs: {
+            NAME: {
+                block: {
+                    type: 'text',
+                    fields: {
+                        TEXT: "Content-Type"
+                    }
                 }
-            }
-        },
-        VALUE: {
-            block: {
-                type: 'text',
-                fields: {
-                    TEXT: "text/html; charset=utf-8"
+            },
+            VALUE: {
+                block: {
+                    type: 'text',
+                    fields: {
+                        TEXT: "text/html; charset=utf-8"
+                    }
                 }
             }
         }

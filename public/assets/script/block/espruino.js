@@ -48,12 +48,14 @@ Blockly.Blocks.espruino_delay = {
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.ESPRUINO_WAIT_TOOLTIP);
     },
-    inputs: {
-        SECONDS: {
-            "block": {
-                "type": "math_number",
-                "fields": {
-                    "NUM": 1
+    toolbox: {
+        inputs: {
+            SECONDS: {
+                "block": {
+                    "type": "math_number",
+                    "fields": {
+                        "NUM": 1
+                    }
                 }
             }
         }
@@ -75,12 +77,14 @@ Blockly.Blocks.espruino_timeout = {
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.ESPRUINO_AFTER_TOOLTIP);
     },
-    inputs: {
-        SECONDS: {
-            "block": {
-                "type": "math_number",
-                "fields": {
-                    "NUM": 1
+    toolbox: {
+        inputs: {
+            SECONDS: {
+                "block": {
+                    "type": "math_number",
+                    "fields": {
+                        "NUM": 1
+                    }
                 }
             }
         }
@@ -103,12 +107,14 @@ Blockly.Blocks.espruino_interval = {
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.ESPRUINO_EVERY_TOOLTIP);
     },
-    inputs: {
-        SECONDS: {
-            "block": {
-                "type": "math_number",
-                "fields": {
-                    "NUM": 1
+    toolbox: {
+        inputs: {
+            SECONDS: {
+                "block": {
+                    "type": "math_number",
+                    "fields": {
+                        "NUM": 1
+                    }
                 }
             }
         }
@@ -182,12 +188,14 @@ Blockly.Blocks.espruino_watch = {
         ['消抖', 'true'],
         ['不消抖', 'false']
     ],
-    inputs: {
-        PIN: {
-            "block": {
-                "type": "espruino_pin",
-                "fields": {
-                    "PIN": 'D0'
+    toolbox: {
+        inputs: {
+            PIN: {
+                "block": {
+                    "type": "espruino_pin",
+                    "fields": {
+                        "PIN": 'D0'
+                    }
                 }
             }
         }
@@ -223,20 +231,22 @@ Blockly.Blocks.espruino_digitalWrite = {
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.ESPRUINO_DIGITALWRITE_TOOLTIP);
     },
-    inputs: {
-        PIN: {
-            "block": {
-                "type": "espruino_pin",
-                "fields": {
-                    "PIN": 'D0'
+    toolbox: {
+        inputs: {
+            PIN: {
+                "block": {
+                    "type": "espruino_pin",
+                    "fields": {
+                        "PIN": 'D0'
+                    }
                 }
-            }
-        },
-        VAL: {
-            "block": {
-                "type": "math_number",
-                "fields": {
-                    "NUM": 1
+            },
+            VAL: {
+                "block": {
+                    "type": "math_number",
+                    "fields": {
+                        "NUM": 1
+                    }
                 }
             }
         }
@@ -260,25 +270,27 @@ Blockly.Blocks.espruino_digitalPulse = {
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.ESPRUINO_DIGITALPULSE_TOOLTIP);
     },
-    inputs: {
-        PIN: {
-            "block": {
-                "type": "espruino_pin",
-                "fields": {
-                    "PIN": 'D0'
+    toolbox: {
+        inputs: {
+            PIN: {
+                "block": {
+                    "type": "espruino_pin",
+                    "fields": {
+                        "PIN": 'D0'
+                    }
                 }
-            }
-        },
-        VAL: {
-            "block": {
-                "type": "logic_boolean"
-            }
-        },
-        TIME: {
-            "block": {
-                "type": "math_number",
-                "fields": {
-                    "NUM": 10
+            },
+            VAL: {
+                "block": {
+                    "type": "logic_boolean"
+                }
+            },
+            TIME: {
+                "block": {
+                    "type": "math_number",
+                    "fields": {
+                        "NUM": 10
+                    }
                 }
             }
         }
@@ -296,15 +308,17 @@ Blockly.Blocks.espruino_digitalRead = {
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.ESPRUINO_DIGITALREAD_TOOLTIP);
     },
-    inputs: {
-        PIN: {
-            "block": {
-                "type": "espruino_pin",
-                "fields": {
-                    "PIN": 'D0'
+    toolbox: {
+        inputs: {
+            PIN: {
+                "block": {
+                    "type": "espruino_pin",
+                    "fields": {
+                        "PIN": 'D0'
+                    }
                 }
-            }
-        },
+            },
+        }
     }
 };
 
@@ -324,20 +338,22 @@ Blockly.Blocks.espruino_analogWrite = {
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.ESPRUINO_ANALOGWRITE_TOOLTIP);
     },
-    inputs: {
-        PIN: {
-            "block": {
-                "type": "espruino_pin",
-                "fields": {
-                    "PIN": 'A0'
+    toolbox: {
+        inputs: {
+            PIN: {
+                "block": {
+                    "type": "espruino_pin",
+                    "fields": {
+                        "PIN": 'A0'
+                    }
                 }
-            }
-        },
-        VAL: {
-            "block": {
-                "type": "logic_boolean"
-            }
-        },
+            },
+            VAL: {
+                "block": {
+                    "type": "logic_boolean"
+                }
+            },
+        }
     }
 };
 Blockly.Blocks.espruino_analogRead = {
@@ -352,15 +368,17 @@ Blockly.Blocks.espruino_analogRead = {
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.ESPRUINO_ANALOGREAD_TOOLTIP);
     },
-    inputs: {
-        PIN: {
-            "block": {
-                "type": "espruino_pin",
-                "fields": {
-                    "PIN": 'A0'
+    toolbox: {
+        inputs: {
+            PIN: {
+                "block": {
+                    "type": "espruino_pin",
+                    "fields": {
+                        "PIN": 'A0'
+                    }
                 }
-            }
-        },
+            },
+        }
     }
 };
 Blockly.Blocks.espruino_pinMode = {
@@ -384,15 +402,17 @@ Blockly.Blocks.espruino_pinMode = {
         ["input_pullup", 'input_pullup'],
         ["output", 'output']
     ],
-    inputs: {
-        PIN: {
-            "block": {
-                "type": "espruino_pin",
-                "fields": {
-                    "PIN": 'D0'
+    toolbox: {
+        inputs: {
+            PIN: {
+                "block": {
+                    "type": "espruino_pin",
+                    "fields": {
+                        "PIN": 'D0'
+                    }
                 }
-            }
-        },
+            },
+        }
     }
 };
 

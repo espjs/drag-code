@@ -211,12 +211,22 @@ body {
     padding: 0 15px;
     font-size: 12px;
     color: #b0b0b0;
+    display: flex;
 }
 
 .status-item {
-    margin-right: 20px;
+    margin: 0px 10px;
 }
 
+
+.status-bar .split {
+    flex: 1;
+}
+
+.status-bar a {
+    color: white;
+    text-decoration: none;
+}
 
 /* 滚动条样式 */
 ::-webkit-scrollbar {

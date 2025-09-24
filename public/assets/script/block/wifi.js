@@ -37,23 +37,25 @@ Blockly.Blocks.espruino_wifi = {
             "colour": 225
         });
     },
-    "inputs": {
-        "ssid": {
-            "block": {
-                "type": "text",
-                "fields": {
-                    "TEXT": "无线名称"
+    toolbox: {
+        inputs: {
+            ssid: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": "无线名称"
+                    }
                 }
-            }
-        },
-        "pwd": {
-            "block": {
-                "type": "text",
-                "fields": {
-                    "TEXT": "无线密码"
+            },
+            pwd: {
+                block: {
+                    type: "text",
+                    fields: {
+                        "TEXT": "无线密码"
+                    }
                 }
-            }
-        },
+            },
+        }
     }
 };
 
@@ -92,23 +94,25 @@ Blockly.Blocks.espruino_wifi_start_ap = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        "ssid": {
-            "block": {
-                "type": "text",
-                "fields": {
-                    "TEXT": "esp8266"
+    toolbox: {
+        inputs: {
+            ssid: {
+                block: {
+                    type: "text",
+                    fields: {
+                        TEXT: "esp8266"
+                    }
                 }
-            }
-        },
-        "password": {
-            "block": {
-                "type": "text",
-                "fields": {
-                    "TEXT": "12345678"
+            },
+            password: {
+                block: {
+                    type: "text",
+                    fields: {
+                        TEXT: "12345678"
+                    }
                 }
-            }
-        },
+            },
+        }
     }
 };
 
@@ -148,23 +152,25 @@ Blockly.Blocks.espruino_wifi_first_config = {
         this.setHelpUrl('');
         this.setColour(225);
     },
-    inputs: {
-        "ssid": {
-            "block": {
-                "type": "text",
-                "fields": {
-                    "TEXT": "esp8266"
+    toolbox: {
+        inputs: {
+            ssid: {
+                block: {
+                    type: "text",
+                    fields: {
+                        TEXT: "esp8266"
+                    }
                 }
-            }
-        },
-        "password": {
-            "block": {
-                "type": "text",
-                "fields": {
-                    "TEXT": "12345678"
+            },
+            password: {
+                block: {
+                    type: "text",
+                    fields: {
+                        TEXT: "12345678"
+                    }
                 }
-            }
-        },
+            },
+        }
     }
 };
 
