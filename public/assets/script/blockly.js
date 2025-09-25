@@ -99,6 +99,12 @@
                         "name": "MQTT服务",
                         "contents": getCategory('mqtt'),
                     },
+                    {
+                        "kind": "category",
+                        "name": "网络请求",
+                        "contents": getCategory('http'),
+
+                    },
                 ]
             },
             {
@@ -140,37 +146,37 @@
                 ],
 
             },
-            {
-                "kind": "category",
-                "name": "全部",
-                "contents": getBlock('')
-            },
-            {
-                "kind": "category",
-                "name": "创建块",
-                "contents": [
-                    {
-                        "kind": "category",
-                        "name": "输入",
-                        "contents": getCategory('create_block_input'),
-                    },
-                    {
-                        "kind": "category",
-                        "name": "字段",
-                        "contents": getCategory('create_block_fields'),
-                    },
-                    {
-                        "kind": "category",
-                        "name": "连接检测",
-                        "contents": getCategory('create_block_connection_check'),
-                    },
-                    {
-                        "kind": "category",
-                        "name": "颜色",
-                        "contents": getCategory('create_block_colour'),
-                    }
-                ]
-            }
+            // {
+            //     "kind": "category",
+            //     "name": "全部",
+            //     "contents": getBlock('')
+            // },
+            // {
+            //     "kind": "category",
+            //     "name": "创建块",
+            //     "contents": [
+            //         {
+            //             "kind": "category",
+            //             "name": "输入",
+            //             "contents": getCategory('create_block_input'),
+            //         },
+            //         {
+            //             "kind": "category",
+            //             "name": "字段",
+            //             "contents": getCategory('create_block_fields'),
+            //         },
+            //         {
+            //             "kind": "category",
+            //             "name": "连接检测",
+            //             "contents": getCategory('create_block_connection_check'),
+            //         },
+            //         {
+            //             "kind": "category",
+            //             "name": "颜色",
+            //             "contents": getCategory('create_block_colour'),
+            //         }
+            //     ]
+            // }
 
         ]
     };

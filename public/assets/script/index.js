@@ -5,7 +5,10 @@ function 更新状态(消息) {
 
 function 显示日志(日志信息, 日志类型 = '') {
     var console = document.getElementById('consoleContent');
-    console.innerHTML += `<div class="console-output ${日志类型}">${日志信息.replace(/\s/g, '&nbsp;')}</div>`;
+    var newLog = document.createElement('div');
+    newLog.className = 'console-output';
+    newLog.innerText = 日志信息;
+    console.appendChild(newLog);
     console.scrollTop = console.scrollHeight;
 }
 

@@ -58,14 +58,19 @@
         });
 
         window.addEventListener('updateCode', function (e) {
-            if (editor.getValue() !== e.detail) {
-                var options = {
-                    indent_size: 4,
-                    space_in_empty_paren: true
+            try {
+                if (editor.getValue() !== e.detail) {
+                    var options = {
+                        indent_size: 4,
+                        space_in_empty_paren: true
+                    }
+                    var code = js_beautify(e.detail, options)
+                    editor.setValue(code);
                 }
-                var code = js_beautify(e.detail, options)
-                editor.setValue(code);
+            } catch (error) {
+                console.log(error);
             }
+
         });
 
         monaco.workspace = editor;
