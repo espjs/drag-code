@@ -36,6 +36,11 @@
         contents: [
             {
                 "kind": "category",
+                "name": "基础",
+                "contents": getCategory('base'),
+            },
+            {
+                "kind": "category",
                 "name": "变量",
                 "custom": "VARIABLE_DYNAMIC"
             },
