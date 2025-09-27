@@ -164,4 +164,29 @@ async function 重启设备() {
     显示日志('设备重启完成');
 }
 
-显示日志('初始化完成!');
+/**
+ * 初始化工作区和编辑器, 因为编辑器会初始化失败, 所以需要自动重载, 一般重载后就可以了, 目前不知道是什么原因!
+*/
+(async () => {
+    var workspace = await createBlockly('cardWorkspace').catch(e => {
+        显示日志('工作区初始化失败, 请刷新页面重试!');
+    });
+    if (!workspace) return;
+
+    var editor = await createVSCode('codeDisplay').catch(e => {
+        显示日志('编辑器初始化失败, 页面自动重载!');
+        setTimeout(() => {
+            location.reload();
+        }, 500);
+    });
+    if (!editor) return;
+
+    document.getElementById('loading').remove();
+
+    // 从localStorage加载工作区状态
+    const state = JSON.parse(localStorage.getItem('workspace-state'));
+    if (state) {
+        Blockly.serialization.workspaces.load(state, workspace);
+    }
+    显示日志('初始化完成!');
+})();

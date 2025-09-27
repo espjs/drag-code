@@ -1,4 +1,4 @@
-(() => {
+async function createBlockly(id,) {
     function getBlock(start) {
         var blockList = [];
         for (var key in Blockly.Blocks) {
@@ -151,42 +151,10 @@
                 ],
 
             },
-            // {
-            //     "kind": "category",
-            //     "name": "全部",
-            //     "contents": getBlock('')
-            // },
-            // {
-            //     "kind": "category",
-            //     "name": "创建块",
-            //     "contents": [
-            //         {
-            //             "kind": "category",
-            //             "name": "输入",
-            //             "contents": getCategory('create_block_input'),
-            //         },
-            //         {
-            //             "kind": "category",
-            //             "name": "字段",
-            //             "contents": getCategory('create_block_fields'),
-            //         },
-            //         {
-            //             "kind": "category",
-            //             "name": "连接检测",
-            //             "contents": getCategory('create_block_connection_check'),
-            //         },
-            //         {
-            //             "kind": "category",
-            //             "name": "颜色",
-            //             "contents": getCategory('create_block_colour'),
-            //         }
-            //     ]
-            // }
-
         ]
     };
 
-    Blockly.workspace = Blockly.inject('cardWorkspace', {
+    Blockly.workspace = Blockly.inject(id, {
         toolbox: toolbox,
         collapse: true,
         comments: true,
@@ -225,14 +193,5 @@
         }
     });
 
-    // window.workspace = Blockly.workspace;
-
-    setTimeout(() => {
-        const state = JSON.parse(localStorage.getItem('workspace-state'));
-        if (state) {
-            Blockly.serialization.workspaces.load(state, Blockly.workspace);
-        }
-    }, 2000);
-
-
-})();
+    return Blockly.workspace;
+}

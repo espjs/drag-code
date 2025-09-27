@@ -1,4 +1,18 @@
-(() => {
+async function createVSCode(id, code = '') {
+
+    var promise = new Promise(function (resolve, reject) {
+        window.addEventListener('monaco_init', function (e) {
+            resolve(e.detail);
+        });
+        window.addEventListener('monaco_init_error', function (e) {
+            reject(e.detail);
+        });
+    });
+
+    var st = setTimeout(function () {
+        window.dispatchEvent(new CustomEvent('monaco_init_error', { detail: 'error' }));
+    }, 5000);
+
     let editor;
     // 配置Monaco Editor
     require.config({
@@ -8,10 +22,9 @@
     });
 
     // 初始化编辑器
-    require(['vs/editor/editor.main'], async function () {
-        var code = '';
+    require(['vs/editor/editor.main'], function () {
         // 创建编辑器实例
-        editor = monaco.editor.create(document.getElementById('codeDisplay'), {
+        editor = monaco.editor.create(document.getElementById(id), {
             value: code,
             language: 'javascript',
             theme: 'vs-dark',
@@ -56,7 +69,6 @@
         editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
             // runCode();
         });
-
         window.addEventListener('updateCode', function (e) {
             try {
                 if (editor.getValue() !== e.detail) {
@@ -70,9 +82,14 @@
             } catch (error) {
                 console.log(error);
             }
-
         });
 
         monaco.workspace = editor;
+
+        clearTimeout(st);
+        st = null;
+        window.dispatchEvent(new CustomEvent('monaco_init', { detail: 'ok' }));
     });
-})();
+
+    return promise;
+}
