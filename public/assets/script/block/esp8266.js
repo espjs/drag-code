@@ -157,3 +157,22 @@ Blockly.JavaScript.forBlock.esp8266_pin_gpio = function () {
     const code = text_name;
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 }
+
+Blockly.Blocks.esp8266_pin = {
+    category: 'esp8266',
+    init: function () {
+        this.appendDummyInput('pin')
+            .appendField('NodeMCU.')
+            .appendField(new Blockly.FieldTextInput('D0'), 'pin');
+        this.setOutput(true, 'Pin');
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setColour(225);
+    }
+};
+
+Blockly.JavaScript.forBlock.esp8266_pin = function () {
+    const text_name = this.getFieldValue('pin');
+    const code = 'NodeMCU.' + text_name;
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+}
