@@ -10,14 +10,14 @@ async function createVSCode(id, code = '') {
     });
 
     var st = setTimeout(function () {
-        window.dispatchEvent(new CustomEvent('monaco_init_error', { detail: 'error' }));
-    }, 5000);
+        window.dispatchEvent(new CustomEvent('monaco_init_error', { detail: '加载超时!' }));
+    }, 60000);
 
     let editor;
     // 配置Monaco Editor
     require.config({
         paths: {
-            'vs': 'https://unpkg.com/monaco-editor@0.53.0/min/vs'
+            'vs': './plugin/monaco-editor/min/vs'
         }
     });
 
@@ -84,7 +84,7 @@ async function createVSCode(id, code = '') {
             }
         });
 
-        monaco.workspace = editor;
+        window.monacoWorkspace = editor;
 
         clearTimeout(st);
         st = null;

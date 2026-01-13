@@ -20,12 +20,28 @@ function 清除日志() {
 
 // 新增窗口控制函数
 function minimizeWindow() {
+    if (window.__TAURI__) {
+        const win = window.__TAURI__.window.getCurrentWindow();
+        win.minimize();
+    }
 }
 
-function maximizeWindow() {
+async function maximizeWindow() {
+    if (window.__TAURI__) {
+        const win = window.__TAURI__.window.getCurrentWindow();
+        if (await win.isMaximized()) {
+            win.unmaximize();
+            return;
+        }
+        win.maximize();
+    }
 }
 
 function closeWindow() {
+    if (window.__TAURI__) {
+        const win = window.__TAURI__.window.getCurrentWindow();
+        win.close();
+    }
 }
 
 var 选择的文件 = null;
@@ -63,6 +79,7 @@ async function 连接开发板() {
         await 选择的设备.打开(115200);
         document.getElementById('device-close-btn').classList.remove('hide');
         选择的设备.监听串口数据(function (收到的数据) {
+            console.log('收到数据:', 收到的数据);
             显示日志(收到的数据);
         });
     };
@@ -78,7 +95,9 @@ async function 写入设备() {
     await 连接开发板();
 
     await 选择的设备.发送代码('echo(false);');
-    var 代码 = monaco.workspace.getValue();
+    console.log('monaco.workspacep:', monacoWorkspace);
+    var 代码 = window.monacoWorkspace.getValue();
+    console.log('代码:', 代码);
 
     await 等待(200);
 
@@ -174,6 +193,8 @@ async function 重启设备() {
     if (!workspace) return;
 
     var editor = await createVSCode('codeDisplay').catch(e => {
+        console.log(e);
+        显示日志(e);
         显示日志('编辑器初始化失败, 页面自动重载!');
         setTimeout(() => {
             location.reload();

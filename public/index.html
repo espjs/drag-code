@@ -81,7 +81,7 @@
 
 
 	<!-- 美化代码函数 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify.min.js"></script>
+	<script src="./plugin/beautify/beautify.min.js"></script>
 
 	<!-- 区域大小调整 -->
 	<script src="./assets/script/resizer.js"></script>
@@ -93,12 +93,12 @@
 
 
 	<!-- 引入 Blockly -->
-	<script src="https://unpkg.com/blockly@12.3.0/blockly_compressed.js"></script>
-	<script src="https://unpkg.com/blockly@12.3.0/blocks_compressed.js"></script>
-	<script src="https://unpkg.com/blockly@12.3.0/javascript_compressed.js"></script>
+	<script src="./plugin/blockly/blockly_compressed.js"></script>
+	<script src="./plugin/blockly/blocks_compressed.js"></script>
+	<script src="./plugin/blockly/javascript_compressed.js"></script>
 
 	<!-- 引入Blockly中文语言包 -->
-	<script src="https://unpkg.com/blockly@12.3.0/msg/zh-hans.js"></script>
+	<script src="./plugin/blockly/msg/zh-hans.js"></script>
 	<script src="./assets/script/block/zh-cn.js"></script>
 
 	<!-- 引入Blockly块定义文件 -->
@@ -109,14 +109,21 @@
 	<script src="./assets/script/block/web.js"></script>
 	<script src="./assets/script/block/mqtt.js"></script>
 	<script src="./assets/script/block/http.js"></script>
-	<script src="./assets/script/block/ds18b20.js"></script>
+
+	<!-- 输入设备块定义文件 -->
+	<script src="./assets/script/block/input/ds18b20.js"></script>
+
+	<!-- 输出设备块定义文件 -->
+	<script src="./assets/script/block/output/relay.js"></script>
 
 	<!-- Blockly 初始化方法 -->
 	<script src="./assets/script/blockly.js"></script>
 
 	<!-- 代码编辑器 -->
-	<script src="https://unpkg.com/monaco-editor@0.53.0/min/vs/loader.js"></script>
+	<script src="./plugin/monaco-editor/min/vs/loader.js"></script>
+	<script src="./plugin/monaco-editor/esm/nls.messages.zh-cn.js"></script>
 	<script src="./assets/script/vscode.js"></script>
+
 
 	<!-- 按钮事件 -->
 	<script src="./assets/script/index.js"></script>

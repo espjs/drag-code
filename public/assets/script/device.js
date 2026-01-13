@@ -90,8 +90,8 @@ class 设备 {
 
     转换代码(代码) {
         return 代码.replace(/\\/g, '\\\\')
-                .replace(/\"/g, '\\"')
-                .replace(/\n/g, '\\n');
+            .replace(/\"/g, '\\"')
+            .replace(/\n/g, '\\n');
     }
 
     获取字符串长度(字符串) {

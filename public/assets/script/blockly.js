@@ -145,6 +145,11 @@ async function createBlockly(id,) {
                 "contents": [
                     {
                         "kind": "category",
+                        "name": "继电器",
+                        "contents": getCategory('relay'),
+                    },
+                    {
+                        "kind": "category",
                         "name": "伺服电机",
                         "contents": getBlock('hw_'),
                     }
@@ -158,7 +163,7 @@ async function createBlockly(id,) {
         toolbox: toolbox,
         collapse: true,
         comments: true,
-        media: 'https://unpkg.com/blockly@12.3.0/media/',
+        media: './plugin/blockly/media/',
     });
 
     Blockly.JavaScript.scrub__ = Blockly.JavaScript.scrub_;
