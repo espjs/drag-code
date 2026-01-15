@@ -89,14 +89,17 @@ async function 运行代码() {
     写入设备();
 }
 
+function 获取代码() {
+    return window.code;
+}
+
 async function 写入设备() {
 
     显示日志('连接开发板');
     await 连接开发板();
 
     await 选择的设备.发送代码('echo(false);');
-    console.log('monaco.workspacep:', monacoWorkspace);
-    var 代码 = window.monacoWorkspace.getValue();
+    var 代码 = 获取代码();
     console.log('代码:', 代码);
 
     await 等待(200);
@@ -183,6 +186,30 @@ async function 重启设备() {
     显示日志('设备重启完成');
 }
 
+async function 监听工作区变化() {
+    window.code = '';
+    window.addEventListener('updateCode', function (e) {
+        try {
+            if (window.code !== e.detail) {
+                window.code = e.detail;
+                var options = {
+                    indent_size: 4,
+                    space_in_empty_paren: true
+                }
+                var code = js_beautify(e.detail, options);
+                codeDisplay.innerHTML = hljs.highlight(
+                    code, {
+                    language: 'javascript',
+                    lineNumbers: true
+                }).value;
+                hljs.lineNumbersBlock(codeDisplay.querySelector('code') || codeDisplay);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    });
+}
+
 /**
  * 初始化工作区和编辑器, 因为编辑器会初始化失败, 所以需要自动重载, 一般重载后就可以了, 目前不知道是什么原因!
 */
@@ -192,15 +219,17 @@ async function 重启设备() {
     });
     if (!workspace) return;
 
-    var editor = await createVSCode('codeDisplay').catch(e => {
-        console.log(e);
-        显示日志(e);
-        显示日志('编辑器初始化失败, 页面自动重载!');
-        setTimeout(() => {
-            location.reload();
-        }, 500);
-    });
-    if (!editor) return;
+    监听工作区变化();
+
+    // var editor = await createVSCode('codeDisplay').catch(e => {
+    //     console.log(e);
+    //     显示日志(e);
+    //     显示日志('编辑器初始化失败, 页面自动重载!');
+    //     setTimeout(() => {
+    //         location.reload();
+    //     }, 500);
+    // });
+    // if (!editor) return;
 
     document.getElementById('loading').remove();
 

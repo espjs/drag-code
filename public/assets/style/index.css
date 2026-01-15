@@ -192,13 +192,21 @@ body {
 }
 
 .code-display {
+    font-family: 'Courier New', Courier, monospace;
     flex: 1;
     font-family: 'Courier New', monospace;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
     overflow-y: auto;
     white-space: pre-wrap;
     color: #e0e0e0;
+    padding-left: 10px;
+}
+
+.hljs-ln-numbers .hljs-ln-n {
+    padding-right: 10px;
+    text-align: right;
+    color: #858585;
 }
 
 /* 状态栏 */

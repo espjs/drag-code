@@ -165,6 +165,5 @@ dist
 .env*
 !.env.example
 .wrangler/
-/public/plugin
 /.vscode
 /.prettierrc
